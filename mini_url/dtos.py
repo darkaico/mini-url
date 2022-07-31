@@ -4,7 +4,7 @@ from dataclasses import asdict, dataclass, is_dataclass
 
 
 @dataclass
-class Stats:
+class StatsDTO:
     last_time_used: datetime
     total_usage: int
 
@@ -14,7 +14,7 @@ class MiniUrlDTO:
     id: str
     long_url: str
     created: datetime.datetime
-    stats: Stats = None
+    stats: StatsDTO = None
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):

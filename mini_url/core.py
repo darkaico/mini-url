@@ -3,7 +3,7 @@ import string
 from datetime import datetime
 
 from mini_url import db
-from mini_url.dtos import MiniUrlDTO
+from mini_url.dtos import MiniUrlDTO, StatsDTO
 
 MINI_URL_LENGTH = 7
 
@@ -22,19 +22,21 @@ def create_mini_url(url: str) -> MiniUrlDTO:
     return mini_url_entity
 
 
-def increment_mini_url_stats(mini_url_entity: MiniUrlDTO):
+def increment_mini_url_stats(mini_url_entity: MiniUrlDTO) -> MiniUrlDTO:
     """Update stats related to the mini url entity after a user used it."""
     if not mini_url_entity.stats:
         mini_url_entity.stats = _generate_first_stats()
     else:
-        mini_url_entity.stats["last_time_used"] = datetime.now()
-        mini_url_entity.stats["total_usage"] += 1
+        mini_url_entity.stats.last_time_used = datetime.now()
+        mini_url_entity.stats.total_usage += 1
 
     db.update_mini_url_entity(mini_url_entity)
 
+    return mini_url_entity
 
-def _generate_first_stats():
-    return {"last_time_used": datetime.now(), "total_usage": 1}
+
+def _generate_first_stats() -> StatsDTO:
+    return StatsDTO(datetime.now(), 1)
 
 
 def _generate_mini_url_id():
