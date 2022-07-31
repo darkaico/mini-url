@@ -25,6 +25,15 @@ The server should be live in http://127.0.0.1:5001/
 - MongoDB running locally [Resources](https://www.mongodb.com/docs/manual/installation/)
 - Copy or rename `.env.example` into a new file called `.env` and fill values there (especially the mongo db URI specifying the DB)
 
+#### Example of .env file
+
+```.env
+SECRET_KEY=your-super-secret-key
+FLASK_CONFIG=development
+FLASK_ENV=development
+MONGO_URI=mongodb://localhost:27017/miniUrlDB
+```
+
 ### Steps
 
 1. Install python dependencies
