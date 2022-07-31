@@ -1,4 +1,5 @@
 import http
+
 from flask import Blueprint, Response, json, request
 
 from mini_url.core import create_mini_url, get_url_from_id

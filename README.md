@@ -14,7 +14,7 @@ Or if you are using `make` just do:
 $ make up
 ```
 
-The server should be live in http://127.0.0.1:4000/
+The server should be live in http://127.0.0.1:5001/
 
 ## Run locally
 
@@ -49,7 +49,10 @@ The server should be live in http://127.0.0.1:4000/
 
 # API
 
-There are 2 main endpoints to work with URL data: Generate an URL and Obtain information from a short url id
+There are 2 basic endpoints to work with URL resources:
+
+- Generate an URL
+- Obtain information from a short url id
 
 ## `POST /api/mini-url`
 
@@ -103,4 +106,24 @@ Once you have a mini url id you could go to the url formed as `{{host}}/{{mini u
 
 ## Example
 
-With the latest case we should go to `http://127.0.0.1:4000/RRQuIwk`
+With the latest case we should go to `http://127.0.0.1:4000/RRQuIwk` and check that we are redirected
+
+## Note
+
+If we get redirected, we could also verify again how is the status of the mini url using the API
+
+`GET /api/mini-url/{mini-url-id}`
+
+And now the response will have basic stats information about it
+
+```
+{
+  "id": "RRQuIwk",
+  "long_url": "https://www.google.com",
+  "created": "2022-07-31T10:29:26.301000",
+  "stats": {
+    "last_time_used": "2022-07-31T10:30:15.537000",
+    "total_usage": 1
+  }
+}
+```

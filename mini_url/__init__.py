@@ -1,10 +1,9 @@
 import os
 
-from flask import Flask, redirect
+from flask import Flask
 
 from mini_url.api import bp as api_bp
-from mini_url.core import increment_mini_url_stats
-from mini_url.db import retrieve_mini_url_entity
+from mini_url.web import bp as web_bp
 
 from .settings import config
 
@@ -16,20 +15,7 @@ def create_app(config_name=None) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config[config_name])
 
-    @app.route("/")
-    def index():
-        return "Hello, Mini Url Fans!"
-
-    @app.route("/<mini_url_id>")
-    def redirect_to_url(mini_url_id):
-        mini_url_entity = retrieve_mini_url_entity(mini_url_id)
-        if not mini_url_entity:
-            return f"=(, seems that {mini_url_id} is not a valid mini url"
-
-        increment_mini_url_stats(mini_url_entity)
-
-        return redirect(mini_url_entity.long_url)
-
+    app.register_blueprint(web_bp)
     app.register_blueprint(api_bp)
 
     return app
