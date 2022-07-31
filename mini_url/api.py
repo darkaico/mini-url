@@ -1,3 +1,4 @@
+import http
 from flask import Blueprint, Response, json, request
 
 from mini_url.core import create_mini_url, get_url_from_id
@@ -16,7 +17,7 @@ def mini_url_create_handler():
 
     mini_url_entity = create_mini_url(url)
 
-    return build_json_from_entity(mini_url_entity)
+    return build_json_from_entity(mini_url_entity), http.HTTPStatus.CREATED
 
 
 @bp.route("/mini-url/<mini_url_id>", methods=["GET"])
@@ -26,4 +27,4 @@ def mini_url_retrieve_handler(mini_url_id):
     if not mini_url_entity:
         return Response("Not Found", status=404)
 
-    return build_json_from_entity(mini_url_entity)
+    return build_json_from_entity(mini_url_entity), http.HTTPStatus.OK
