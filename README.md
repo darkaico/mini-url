@@ -47,6 +47,14 @@ $ FLASK_APP=mini_url.app flask run -h 0.0.0.0 -p 4000
 
 The server should be live in http://127.0.0.1:4000/
 
+### Tests
+
+One you are inside the potery shell you could just run tests body
+
+```bash
+$ pytest
+```
+
 # API
 
 There are 2 basic endpoints to work with URL resources:
