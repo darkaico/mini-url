@@ -5,7 +5,7 @@ from datetime import datetime
 from mini_url import db
 from mini_url.dtos import MiniUrlDTO, StatsDTO
 
-MINI_URL_LENGTH = 7
+MINI_URL_ID_LENGTH = 7
 
 
 def create_mini_url(url: str) -> MiniUrlDTO:
@@ -39,7 +39,7 @@ def _generate_first_stats() -> StatsDTO:
     return StatsDTO(datetime.now(), 1)
 
 
-def _generate_mini_url_id():
+def _generate_mini_url_id() -> str:
     return "".join(
-        random.choices(string.ascii_letters + string.digits, k=MINI_URL_LENGTH)
+        random.choices(string.ascii_letters + string.digits, k=MINI_URL_ID_LENGTH)
     )
