@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from unittest.mock import patch
 
 import pytest
@@ -8,12 +8,22 @@ from mini_url.core import (
     _generate_mini_url_id,
     increment_mini_url_stats,
 )
-from mini_url.dtos import MiniUrlDTO
+from mini_url.dtos import MiniUrlDTO, StatsDTO
 
 
 @pytest.fixture
 def mini_url():
     return MiniUrlDTO("id", "https://www.marvel.com", datetime.now())
+
+
+@pytest.fixture
+def mini_url_with_stats():
+    return MiniUrlDTO(
+        "id",
+        "https://www.disney.com",
+        datetime.now() - timedelta(hours=1),
+        StatsDTO(datetime.now(), 1),
+    )
 
 
 def test_generate_mini_url_id_are_different():
@@ -43,5 +53,16 @@ def test_increment_mini_url_stats_first_time(mock_update_mini_url_entity, mini_u
     mini_url_updated = increment_mini_url_stats(mini_url)
 
     assert mini_url_updated.stats.total_usage == 1
+
+    mock_update_mini_url_entity.assert_called()
+
+
+@patch("mini_url.core.db.update_mini_url_entity")
+def test_increment_mini_url_with_stats(
+    mock_update_mini_url_entity, mini_url_with_stats
+):
+    mini_url_updated = increment_mini_url_stats(mini_url_with_stats)
+
+    assert mini_url_updated.stats.total_usage == 2
 
     mock_update_mini_url_entity.assert_called()
