@@ -7,6 +7,7 @@ from mini_url.core import (
     _generate_first_stats,
     _generate_mini_url_id,
     increment_mini_url_stats,
+    create_mini_url,
 )
 from mini_url.dtos import MiniUrlDTO, StatsDTO
 
@@ -66,3 +67,15 @@ def test_increment_mini_url_with_stats(
     assert mini_url_updated.stats.total_usage == 2
 
     mock_update_mini_url_entity.assert_called()
+
+
+@patch("mini_url.core.db.save_mini_url_entity")
+def test_create_mini_url(mock_save_mini_url_entity, mini_url):
+    url = "https://www.sparrow.com"
+    mini_url = create_mini_url(url)
+
+    assert mini_url.id is not None
+    assert isinstance(mini_url.created, datetime)
+    assert mini_url.long_url == url
+
+    mock_save_mini_url_entity.assert_called()
