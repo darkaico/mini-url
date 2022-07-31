@@ -1,4 +1,5 @@
-from flask import Blueprint, Response, json, request, abort
+from flask import Blueprint, Response, json, request
+
 from mini_url.core import create_mini_url, get_url_from_id
 from mini_url.dtos import build_json_from_entity
 

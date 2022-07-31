@@ -1,7 +1,9 @@
 from dataclasses import asdict
-from flask_pymongo import PyMongo
+
 from flask import current_app, g
-from mini_url.dtos import MiniUrlDTO, build_json_from_entity
+from flask_pymongo import PyMongo
+
+from mini_url.dtos import MiniUrlDTO
 
 mongo = None
 

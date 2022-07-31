@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, redirect
+
 from mini_url.api import bp as api_bp
 from mini_url.core import increment_mini_url_stats
 from mini_url.db import retrieve_mini_url_entity

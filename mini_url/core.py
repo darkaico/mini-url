@@ -1,8 +1,8 @@
 import random
 import string
 from datetime import datetime
-from mini_url import db
 
+from mini_url import db
 from mini_url.dtos import MiniUrlDTO
 
 MINI_URL_LENGTH = 7

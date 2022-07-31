@@ -1,8 +1,6 @@
 import datetime
 import json
 from dataclasses import asdict, dataclass, is_dataclass
-from typing import Optional
-from flask import request
 
 
 @dataclass
