@@ -27,6 +27,8 @@ class EnhancedJSONEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-def build_json_from_entity(dto_entity: dataclass) -> str:
+def build_json_from_entity(dto_entity: dataclass) -> dict:
 
-    return json.dumps(dto_entity, cls=EnhancedJSONEncoder)
+    json_str = json.dumps(dto_entity, cls=EnhancedJSONEncoder)
+
+    return json.loads(json_str)

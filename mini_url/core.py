@@ -22,12 +22,6 @@ def create_mini_url(url: str) -> MiniUrlDTO:
     return mini_url_entity
 
 
-def get_url_from_id(mini_url_id: str) -> MiniUrlDTO:
-    mini_url_entity = db.retrieve_mini_url_entity(mini_url_id)
-
-    return mini_url_entity
-
-
 def increment_mini_url_stats(mini_url_entity: MiniUrlDTO):
     """Update stats related to the mini url entity after a user used it."""
     if not mini_url_entity.stats:

@@ -1,8 +1,9 @@
 import http
 
-from flask import Blueprint, Response, json, request
+from flask import Blueprint, json, request
 
-from mini_url.core import create_mini_url, get_url_from_id
+from mini_url.core import create_mini_url
+from mini_url.db import retrieve_mini_url_entity
 from mini_url.dtos import build_json_from_entity
 
 bp = Blueprint("api", __name__, url_prefix="/api")
@@ -14,7 +15,7 @@ def mini_url_create_handler():
     url = data.get("url")
 
     if not url:
-        return Response("Missing url attribute", status=400)
+        return {"url": "this attribute is required"}, 400
 
     mini_url_entity = create_mini_url(url)
 
@@ -23,9 +24,9 @@ def mini_url_create_handler():
 
 @bp.route("/mini-url/<mini_url_id>", methods=["GET"])
 def mini_url_retrieve_handler(mini_url_id):
-    mini_url_entity = get_url_from_id(mini_url_id)
+    mini_url_entity = retrieve_mini_url_entity(mini_url_id)
 
     if not mini_url_entity:
-        return Response("Not Found", status=404)
+        return {"error": "entity not found"}, 404
 
     return build_json_from_entity(mini_url_entity), http.HTTPStatus.OK
